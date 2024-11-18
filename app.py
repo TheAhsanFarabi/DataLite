@@ -53,5 +53,5 @@ if uploaded_file:
 
 # Footer
 st.markdown("---")
-st.markdown("**Developed by [Your Name]. Powered by Streamlit.**")
+st.markdown("**Developed by Ahsan Farabi. Powered by Streamlit.**")
 
