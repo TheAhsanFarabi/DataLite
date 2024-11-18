@@ -30,15 +30,25 @@ if uploaded_file:
     # Visualization
     st.subheader("Visualization")
     column = st.selectbox("Choose a column to visualize", df.columns)
+
+    # Determine column type and provide three graphs
     if df[column].dtype in ['int64', 'float64']:
-        st.write("Histogram")
+        # Histogram
+        st.write("### Histogram")
         fig, ax = plt.subplots()
         sns.histplot(df[column], kde=True, ax=ax)
         st.pyplot(fig)
-    else:
-        st.write("Bar Chart")
+
+        # Box Plot
+        st.write("### Box Plot")
         fig, ax = plt.subplots()
-        df[column].value_counts().plot(kind='bar', ax=ax)
+        sns.boxplot(y=df[column], ax=ax)
+        st.pyplot(fig)
+    else:
+        # Bar Chart
+        st.write("### Bar Chart")
+        fig, ax = plt.subplots()
+        sns.countplot(y=df[column], ax=ax)
         st.pyplot(fig)
 
     # Correlation Matrix
@@ -53,4 +63,3 @@ if uploaded_file:
 
 # Footer
 st.markdown("---")
-
