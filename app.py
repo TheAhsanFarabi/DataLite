@@ -7,14 +7,23 @@ import seaborn as sns
 st.title("DataLite: Simplified Data Mining Tool")
 st.write("Upload a CSV file to explore and analyze your data easily.")
 
-# File Upload
-uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
+# Option to use sample data or upload a CSV
+use_sample_data = st.radio("Choose data source:", ('Upload CSV', 'Use Sample Data'))
 
-if uploaded_file:
-    # Read and display the uploaded file
-    df = pd.read_csv(uploaded_file)
-    st.subheader("Uploaded Data")
+if use_sample_data == 'Use Sample Data':
+    # Load sample data from the 'data/sample.csv' file
+    sample_file = 'data/sample.csv'
+    df = pd.read_csv(sample_file)
+    st.write("Using the sample data:")
     st.write(df.head())
+else:
+    # File Upload
+    uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
+    if uploaded_file:
+        df = pd.read_csv(uploaded_file)
+        st.subheader("Uploaded Data")
+        st.write(df.head())
+
 
     # Data Summary
     st.subheader("Data Summary")
