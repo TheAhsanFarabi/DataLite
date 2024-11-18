@@ -51,15 +51,7 @@ if uploaded_file:
         sns.countplot(y=df[column], ax=ax)
         st.pyplot(fig)
 
-    # Correlation Matrix
-    st.subheader("Correlation Matrix")
-    if df.select_dtypes(include=['int64', 'float64']).shape[1] > 1:
-        corr = df.corr()
-        fig, ax = plt.subplots(figsize=(10, 6))
-        sns.heatmap(corr, annot=True, cmap='coolwarm', ax=ax)
-        st.pyplot(fig)
-    else:
-        st.write("Not enough numeric data for a correlation matrix.")
+
 
 # Footer
 st.markdown("---")
