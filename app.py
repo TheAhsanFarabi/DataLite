@@ -4,6 +4,10 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import requests
 
+# Sidebar for GROQ API Key
+st.sidebar.title("🔐 API Configuration")
+api_key = st.sidebar.text_input("Enter your GROQ API Key", type="password")
+
 # App Title
 st.title("DataLite: Simplified Data Mining Tool (GROQ Enhanced)")
 st.write("Upload a CSV file to explore and analyze your data, or use the sample data. Ask questions and let AI do the rest!")
@@ -59,11 +63,13 @@ if df is not None:
         sns.countplot(y=df[column], ax=ax)
         st.pyplot(fig)
 
-    # GROQ AI-Powered Query
+    # GROQ AI Query
     st.subheader("💡 Ask AI About Your Data (Powered by GROQ)")
     user_query = st.text_area("Example: 'What are the top 5 most frequent values in the column X?'")
 
-    if user_query:
+    if not api_key:
+        st.warning("Please enter your GROQ API key in the sidebar to use AI features.")
+    elif user_query:
         prompt = f"""You are a data analyst. Based on the preview of this dataset, answer the following user query with insight and stats:
 Dataset:
 {df.head(10).to_csv(index=False)}
@@ -75,7 +81,7 @@ User Query:
             response = requests.post(
                 "https://api.groq.com/openai/v1/chat/completions",
                 headers={
-                    "Authorization": "Bearer YOUR_GROQ_API_KEY",  # Replace with your actual key
+                    "Authorization": f"Bearer {api_key}",
                     "Content-Type": "application/json"
                 },
                 json={
@@ -95,7 +101,6 @@ User Query:
                 st.write(result)
             else:
                 st.error("Failed to get a response from GROQ API. Check your key or input.")
-
 else:
     st.info("Please upload a CSV or use the sample data to begin analysis.")
 
