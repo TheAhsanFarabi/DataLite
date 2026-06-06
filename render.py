@@ -61,7 +61,7 @@ CSS = f"""
 #MainMenu, header[data-testid="stHeader"], footer {{ display:none !important; }}
 [data-testid="stDecoration"] {{ display:none !important; }}
 
-html, body, .stApp, [class*="st-"], button, input, textarea, select {{
+html, body, .stApp, button, input, textarea, select {{
   font-family:'Spline Sans', system-ui, sans-serif;
 }}
 .stApp {{
@@ -183,14 +183,31 @@ details.verify[open] summary::before {{ content:"\\2212"; }}
   to {{ opacity:1; transform:none; }} }}
 @keyframes grow {{ from {{ width:0 !important; }} }}
 
-/* ---------- streamlit widget restyle (sidebar / expanders / inputs) ------- */
-[data-testid="stSidebar"] {{ background:#F1ECE0; border-right:1px solid var(--line); }}
-[data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2 {{
-  font-family:'Fraunces', serif; font-weight:600; }}
+/* ---------- streamlit widget restyle ---------- */
+/* DARK sidebar against the light editorial page (high contrast, intentional) */
+[data-testid="stSidebar"] {{ background:#26211A; border-right:1px solid #3A3225; }}
+[data-testid="stSidebar"] * {{ color:#ECE5D7; }}
+[data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 {{ font-family:'Fraunces', serif; font-weight:600;
+  color:#FCFAF4; }}
+[data-testid="stSidebar"] [data-testid="stCaptionContainer"],
+[data-testid="stSidebar"] [data-testid="stCaptionContainer"] * {{
+  color:#A89E8C !important; }}
+[data-testid="stSidebar"] a {{ color:#E86A52 !important; }}
+[data-testid="stSidebar"] [data-testid="stExpander"] details {{
+  background:#2F281F !important; border:1px solid #43392B !important; }}
+[data-testid="stSidebar"] input, [data-testid="stSidebar"] textarea {{
+  background:#1C1813 !important; color:#ECE5D7 !important;
+  border:1px solid #43392B !important; }}
+[data-testid="stSidebar"] input::placeholder {{ color:#857B6A !important; }}
+[data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"] {{
+  background:#2F281F !important; border:1px dashed #4A4030 !important; }}
+
+/* expanders in the main (light) area */
 [data-testid="stExpander"] details {{ border:1px solid var(--line) !important;
   border-radius:3px !important; background:var(--card); }}
-[data-testid="stExpander"] summary {{ font-family:'DM Mono', monospace;
-  text-transform:uppercase; letter-spacing:.1em; font-size:12px; }}
+[data-testid="stExpander"] summary p {{ font-family:'DM Mono', monospace;
+  text-transform:uppercase; letter-spacing:.08em; font-size:12px; }}
 .stButton button {{ background:var(--ink); color:var(--paper); border:none;
   border-radius:3px; font-family:'DM Mono', monospace; text-transform:uppercase;
   letter-spacing:.1em; font-size:12px; }}
